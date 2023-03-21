@@ -1,0 +1,32 @@
+{
+  "name": "com.uurha.betterjoystick",
+  "displayName": "Better Joystick",
+  "version": "0.0.1",
+  "unity": "2021.3",
+  "description": " ",
+  "dependencies": {
+    "com.uurha.somepackage": "0.0.1"
+  },
+  "author": {
+    "name": "Arcueid D'athemon",
+    "url": "https://github.com/uurha"
+  },
+  "changelogUrl": "https://github.com/uurha/BetterJoystick",
+  "documentationUrl": "https://github.com/uurha/BetterJoystick/tree/main#readme",
+  "license": "MIT",
+  "licensesUrl":"https://github.com/uurha/BetterJoystick/blob/main/LICENSE",
+  "keywords": [
+    "Input",
+    "User Input",
+    "Joystick",
+    "UIToolkit",
+    "UI"
+  ],
+  "samples": [
+    {
+      "displayName": "Default samples",
+      "description": "Contains test samples",
+      "path": "Samples~/TestSamples"
+    }
+  ]
+}

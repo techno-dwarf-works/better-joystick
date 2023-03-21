@@ -1,8 +1,8 @@
 {
-    "name": "{project_name}.Editor",
-    "rootNamespace": "",
+    "name": "BetterJoystick.Editor",
+    "rootNamespace": "BetterJoystick.EditorAddons",
     "references": [
-        "GUID:443314a5a4e67c14a88ae223776b6554"
+        "BetterJoystick.Runtime"
     ],
     "includePlatforms": [
         "Editor"
