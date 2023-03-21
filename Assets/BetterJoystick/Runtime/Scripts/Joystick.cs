@@ -53,12 +53,6 @@ namespace BetterJoystick.Runtime
             Add(_joystickInner);
             _joystickRect = new CircleRect(this);
             Value = Vector2.zero;
-            this.RegisterValueChangedCallback(OnChange);
-        }
-
-        private void OnChange(ChangeEvent<Vector2> evt)
-        {
-            Debug.Log(evt.newValue);
         }
 
         private void OnAttached(GeometryChangedEvent geometryChangedEvent)
