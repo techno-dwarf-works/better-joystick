@@ -1,17 +1,10 @@
 ﻿using System;
+using BetterJoystick.Runtime.JoystickRect.Interfaces;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace BetterJoystick.Runtime
+namespace BetterJoystick.Runtime.JoystickRect.Models
 {
-    public interface IJoystickRect
-    {
-        public Vector2 Center { get; }
-        public float Radius { get; }
-        public bool InRange(Vector2 point);
-        public Vector2 GetPointOnEdge(Vector2 point);
-    }
-    
     [Serializable]
     public class CircleRect : IJoystickRect
     {

@@ -1,12 +1,9 @@
 {
   "name": "com.uurha.betterjoystick",
   "displayName": "Better Joystick",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "unity": "2021.3",
-  "description": " ",
-  "dependencies": {
-    "com.uurha.somepackage": "0.0.1"
-  },
+  "description": "Simple UI joystick done on UI Toolkit",
   "author": {
     "name": "Arcueid D'athemon",
     "url": "https://github.com/uurha"

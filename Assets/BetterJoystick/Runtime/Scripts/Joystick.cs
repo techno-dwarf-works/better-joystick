@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using BetterJoystick.Runtime.JoystickRect.Interfaces;
+using BetterJoystick.Runtime.JoystickRect.Models;
+using BetterJoystick.Runtime.Models;
+using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
@@ -13,10 +17,10 @@ namespace BetterJoystick.Runtime
 
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
-            UxmlBoolAttributeDescription normalizeDescription =
+           private readonly UxmlBoolAttributeDescription _normalizeDescription =
                 new UxmlBoolAttributeDescription { name = "Normalize", defaultValue = false };
 
-            UxmlBoolAttributeDescription recenterDescription =
+            private readonly UxmlBoolAttributeDescription _recenterDescription =
                 new UxmlBoolAttributeDescription { name = "Recenter", defaultValue = true };
 
             public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
@@ -24,8 +28,8 @@ namespace BetterJoystick.Runtime
                 base.Init(ve, bag, cc);
                 var ate = ve as Joystick;
 
-                ate.Normalize = normalizeDescription.GetValueFromBag(bag, cc);
-                ate.Recenter = recenterDescription.GetValueFromBag(bag, cc);
+                ate.Normalize = _normalizeDescription.GetValueFromBag(bag, cc);
+                ate.Recenter = _recenterDescription.GetValueFromBag(bag, cc);
             }
         }
 
@@ -42,22 +46,18 @@ namespace BetterJoystick.Runtime
         public Joystick()
         {
             AddToClassList(StyleClassName);
+            styleSheets.Add(Resources.Load<StyleSheet>("Styles/JoystickStyles"));
             _joystickInner = new InnerJoystickImage();
             _joystickInner.DragEvent += OnDragEvent;
-            _joystickInner.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
-            _joystickInner.style.position = new StyleEnum<Position>(Position.Absolute);
-            _joystickInner.style.height = new StyleLength(new Length(100, LengthUnit.Pixel));
-            _joystickInner.style.width = new StyleLength(new Length(100, LengthUnit.Pixel));
-            _joystickInner.image = new Texture2D(100, 100);
-            _joystickInner.RegisterCallback<GeometryChangedEvent>(OnAttached);
             Add(_joystickInner);
+            _joystickInner.BringToFront();
+            RegisterCallback<GeometryChangedEvent>(OnAttached);
             _joystickRect = new CircleRect(this);
             Value = Vector2.zero;
         }
 
         private void OnAttached(GeometryChangedEvent geometryChangedEvent)
         {
-            _joystickInner.UnregisterCallback<GeometryChangedEvent>(OnAttached);
             PlaceJoystickAtCenter();
         }
 
@@ -104,14 +104,28 @@ namespace BetterJoystick.Runtime
 
         private Vector2 GetCentering()
         {
-            return new Vector2(_joystickInner.resolvedStyle.height / 2f, _joystickInner.resolvedStyle.width / 2f);
+            var innerResolvedStyle = _joystickInner.resolvedStyle;
+            var styleHeight = (innerResolvedStyle.height + GetTopOffset(innerResolvedStyle)) / 2f;
+            var styleWidth = (innerResolvedStyle.width + GetLeftOffset(innerResolvedStyle)) / 2f;
+            return new Vector2(styleHeight, styleWidth);
         }
 
         private void PlaceJoystickAtCenter()
         {
             var centering = GetCentering();
-            _joystickInner.style.top = centering.y;
-            _joystickInner.style.left = centering.x;
+            var joystickResolvedStyle = resolvedStyle;
+            _joystickInner.style.top = (joystickResolvedStyle.height - GetTopOffset(joystickResolvedStyle)) / 2f - centering.y;
+            _joystickInner.style.left = (joystickResolvedStyle.width - GetLeftOffset(joystickResolvedStyle)) / 2f - centering.x;
+        }
+
+        private float GetTopOffset(IResolvedStyle resolved)
+        {
+            return resolved.paddingTop + resolved.marginTop + resolved.borderTopWidth;
+        }
+
+        private float GetLeftOffset(IResolvedStyle resolved)
+        {
+            return resolved.paddingLeft + resolved.marginLeft + resolved.borderLeftWidth;
         }
 
         public void SetJoystickRect(IJoystickRect joystickRect)
