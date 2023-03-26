@@ -1,7 +1,7 @@
 {
   "name": "com.uurha.betterjoystick",
   "displayName": "Better Joystick",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "unity": "2021.3",
   "description": "Simple UI joystick done on UI Toolkit",
   "author": {
