@@ -1,5 +1,4 @@
-﻿using System;
-using BetterJoystick.Runtime.JoystickRect.Interfaces;
+﻿using BetterJoystick.Runtime.JoystickRect.Interfaces;
 using BetterJoystick.Runtime.JoystickRect.Models;
 using BetterJoystick.Runtime.Models;
 using UnityEngine;
@@ -10,6 +9,8 @@ namespace BetterJoystick.Runtime
 {
     public class Joystick : VisualElement, INotifyValueChanged<Vector2>
     {
+       
+        
         [Preserve]
         public new class UxmlFactory : UxmlFactory<Joystick, UxmlTraits>
         {
@@ -17,7 +18,7 @@ namespace BetterJoystick.Runtime
 
         public new class UxmlTraits : VisualElement.UxmlTraits
         {
-           private readonly UxmlBoolAttributeDescription _normalizeDescription =
+            private readonly UxmlBoolAttributeDescription _normalizeDescription =
                 new UxmlBoolAttributeDescription { name = "Normalize", defaultValue = false };
 
             private readonly UxmlBoolAttributeDescription _recenterDescription =
@@ -33,10 +34,15 @@ namespace BetterJoystick.Runtime
             }
         }
 
-        // Must expose your element class to a { get; set; } property that has the same name 
-        // as the name you set in your UXML attribute description with the camel case format
-        public bool Normalize { get; set; }
-        public bool Recenter { get; set; }
+        /// <summary>
+        /// Normalizing output value in JoystickEvent or you can set this in UIBuilder
+        /// </summary>
+        public bool Normalize { get; set; } = false;
+
+        /// <summary>
+        /// Allows to re-centering inner joystick after user release or you can set this in UIBuilder
+        /// </summary>
+        public bool Recenter { get; set; } = true;
 
         public const string StyleClassName = "better-joystick";
 
@@ -94,7 +100,7 @@ namespace BetterJoystick.Runtime
                 newValue = newValue.normalized * t;
             }
 
-            using (var pulled = ChangeEvent<Vector2>.GetPooled(prevValue, newValue))
+            using (var pulled = JoystickEvent.GetPooled(prevValue, newValue))
             {
                 pulled.target = this;
                 panel.visualTree.SendEvent(pulled);
