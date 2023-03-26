@@ -5,5 +5,54 @@
 
 Simple UIToolkit joystick
 
+## Usage
+```c#
+public class Test : MonoBehaviour
+{
+    [SerializeField] private UIDocument document;
+
+    public void CreateJoystick()
+    {
+        var joystick = new Joystick();
+        joystick.RegisterCallback<JoystickEvent>(OnDrag);
+        joystick.Normalize = true; // Normalizing output value in JoystickEvent or you can set this in UIBuilder
+        joystick.Recenter = true; // Allows to re-centering inner joystick after user release or you can set this in UIBuilder
+
+        public bool Recenter { get; set; }
+        //or
+
+        var joystickFromDocument = document.rootVisualElement.Q<Joystick>();
+        joystickFromDocument.RegisterCallback<JoystickEvent>(OnDrag);
+    }
+
+    private void OnDrag(ChangeEvent<Vector2> evt)
+    {
+        Debug.Log(evt.newValue);
+    }
+}
+```
+
+To change style of joystick use uss classes:
+
+```css
+.better-inner-joystick{
+}
+
+.better-joystick{
+}
+```
+
+### Note
+You can alter joystick restriction (which shape joystick tends to follow) behaviour by implementing `IJoystickRect`.
+From the box you have 2 already implemented `JoystickRect`'s:
+1. CircleRect (set by default)
+2. RectangleRect
+
+To set new IJoystickRect follow those instractions:
+```c#
+ var joystick = new Joystick();
+joystick.SetJoystickRect(new RectangleRect(joystick));
+```
+
 ## Install
 [How to istall](https://github.com/uurha/BetterPluginCollection/wiki/How-to-install)
