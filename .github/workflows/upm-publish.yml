@@ -21,14 +21,28 @@ jobs:
     if: ${{ inputs.run_manually }} || github.event.pull_request.merged == true
     runs-on: ubuntu-latest    
     steps:
-    
+    - name: Set the original string
+      id: setOriginalString
+      run: echo "{{ github.event.repository.name }}"
+
+    - name: Convert string
+      id: convertString
+      run: |
+        ORIGINAL_STRING="${{ steps.setOriginalString.outputs.originalString }}"
+        IFS='-' read -ra PARTS <<< "$ORIGINAL_STRING"
+        RESULT=""
+        for PART in "${PARTS[@]}"; do
+          RESULT="${RESULT}$(echo "${PART^}")"
+        done
+        echo "::set-output name=convertedString::${RESULT}"
+        
     - uses: actions/checkout@master
     - name: Copy the README
       run: |
-          cp "README.md" "Assets/${{ github.event.repository.name }}/README.md"
+          cp "README.md" "Assets/${{ steps.convertString.outputs.convertedString }}/README.md"
     - name: Copy the LICENSE
       run: |
-          cp "LICENSE" "Assets/${{ github.event.repository.name }}/LICENSE"
+          cp "LICENSE" "Assets/${{ steps.convertString.outputs.convertedString }}/LICENSE"
     - name: Verify Changed files
       uses: tj-actions/verify-changed-files@v11.1
       id: verify-changed-files
