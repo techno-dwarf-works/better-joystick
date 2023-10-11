@@ -17,8 +17,7 @@ public class Test : MonoBehaviour
         joystick.RegisterCallback<JoystickEvent>(OnDrag);
         joystick.Normalize = true; // Normalizing output value in JoystickEvent or you can set this in UIBuilder
         joystick.Recenter = true; // Allows to re-centering inner joystick after user release or you can set this in UIBuilder
-
-        public bool Recenter { get; set; }
+        
         //or
 
         var joystickFromDocument = document.rootVisualElement.Q<Joystick>();
@@ -55,4 +54,4 @@ joystick.SetJoystickRect(new RectangleRect(joystick));
 ```
 
 ## Install
-[How to istall](https://github.com/uurha/BetterPluginCollection/wiki/How-to-install)
+[How to install](https://github.com/uurha/BetterPluginCollection/wiki/How-to-install)
