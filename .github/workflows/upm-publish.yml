@@ -17,6 +17,7 @@ on:
 
 jobs:
  convert_string:
+    name: Prepare String
     runs-on: ubuntu-latest
     outputs:
       converted_string: ${{ steps.convertString.outputs.convertedString }}
