@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Set the original string
         id: setOriginalString
-        run: echo "::set-output name=originalString::{{ github.event.repository.name }}"
+        run: echo "::set-output name=originalString::${{ github.event.repository.name }}"
 
       - name: Convert string
         id: convertString
