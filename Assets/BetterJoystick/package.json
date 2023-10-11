@@ -1,17 +1,17 @@
 {
-  "name": "com.uurha.betterjoystick",
+  "name": "com.tdw.betterjoystick",
   "displayName": "Better Joystick",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "unity": "2021.3",
   "description": "Simple UI joystick done on UI Toolkit",
   "author": {
     "name": "Arcueid D'athemon",
-    "url": "https://github.com/uurha"
+    "url": "https://github.com/techno-dwarf-works"
   },
-  "changelogUrl": "https://github.com/uurha/BetterJoystick",
-  "documentationUrl": "https://github.com/uurha/BetterJoystick/tree/main#readme",
+  "changelogUrl": "https://github.com/techno-dwarf-works/better-joystick",
+  "documentationUrl": "https://github.com/techno-dwarf-works/better-joystick/tree/main#readme",
   "license": "MIT",
-  "licensesUrl":"https://github.com/uurha/BetterJoystick/blob/main/LICENSE",
+  "licensesUrl":"https://github.com/techno-dwarf-works/better-joystick/blob/main/LICENSE",
   "keywords": [
     "Input",
     "User Input",
