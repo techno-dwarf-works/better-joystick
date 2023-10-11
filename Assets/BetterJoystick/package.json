@@ -1,7 +1,7 @@
 {
   "name": "com.tdw.betterjoystick",
   "displayName": "Better Joystick",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "unity": "2021.3",
   "description": "Simple UI joystick done on UI Toolkit",
   "author": {
