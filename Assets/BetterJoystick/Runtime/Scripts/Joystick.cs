@@ -81,13 +81,13 @@ namespace BetterJoystick.Runtime
             else
             {
                 var centering = GetCentering();
-                var mousePosition = obj.MousePosition;
-                if (!_joystickRect.InRange(obj.MousePosition))
+                var mousePosition = obj.MousePosition - GetJoystickRelativeAreaPosition();
+                if (!_joystickRect.InRange(mousePosition))
                 {
-                    mousePosition = _joystickRect.GetPointOnEdge(obj.MousePosition);
+                    mousePosition = _joystickRect.GetPointOnEdge(mousePosition);
                 }
 
-                var panelPosition = this.WorldToLocal(mousePosition - centering);
+                var panelPosition = mousePosition - centering;
                 _joystickInner.style.top = panelPosition.y;
                 _joystickInner.style.left = panelPosition.x;
                 newValue = mousePosition - _joystickRect.Center;
@@ -122,6 +122,12 @@ namespace BetterJoystick.Runtime
             var joystickResolvedStyle = resolvedStyle;
             _joystickInner.style.top = (joystickResolvedStyle.height - GetTopOffset(joystickResolvedStyle)) / 2f - centering.y;
             _joystickInner.style.left = (joystickResolvedStyle.width - GetLeftOffset(joystickResolvedStyle)) / 2f - centering.x;
+        }
+        
+        private Vector2 GetJoystickRelativeAreaPosition()
+        {
+            var joystickElementPosition = worldBound;
+            return new Vector2(joystickElementPosition.x, joystickElementPosition.y);
         }
 
         private float GetTopOffset(IResolvedStyle resolved)

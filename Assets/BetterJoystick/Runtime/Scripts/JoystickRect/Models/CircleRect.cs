@@ -17,7 +17,8 @@ namespace BetterJoystick.Runtime.JoystickRect.Models
 
         public float Radius => _root.layout.width / 2f;
 
-        public Vector2 Center => _root.layout.center;
+        // Center relative to the container
+        public Vector2 Center => _root.layout.center - _root.layout.position;
 
         public bool InRange(Vector2 point)
         {
