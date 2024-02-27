@@ -17,34 +17,31 @@ namespace BetterJoystick.Runtime.JoystickRect.Models
 
         public float Radius => Mathf.Max(_root.layout.width, _root.layout.height) / 2f;
 
-        public Vector2 Center => _root.layout.center;
+        public Vector2 Center => _root.layout.center - _root.layout.position;
 
         public bool InRange(Vector2 point)
         {
-            return _root.layout.Contains(point);
+            // Check the point exists within the rectangle relative to bounds
+            return new Rect(0,0, _root.layout.width, _root.layout.height).Contains(point);
         }
 
         public Vector2 GetPointOnEdge(Vector2 point)
         {
-            return GetClosestPointOnRectEdge(_root.layout, point);
+            return GetClosestPointOnRectEdge(point);
         }
 
-        private Vector2 GetClosestPointOnRectEdge(Rect rect, Vector2 point)
+        private Vector2 GetClosestPointOnRectEdge(Vector2 point)
         {
-            // Get the center point of the rectangle
-            var center = rect.center;
-    
-            // Calculate the half-width and half-height of the rectangle
-            var halfWidth = rect.width / 2;
-            var halfHeight = rect.height / 2;
+            var halfWidth = Center.x;
+            var halfHeight = Center.y;
     
             // Calculate the distance between the center point and the outer point
-            var direction = point - center;
+            var direction = point - Center;
     
             // Calculate the distance between the center point and the closest point on the edge of the rectangle
             var deltaX = Mathf.Clamp(direction.x, -halfWidth, halfWidth);
             var deltaY = Mathf.Clamp(direction.y, -halfHeight, halfHeight);
-            var closestPoint = center + new Vector2(deltaX, deltaY);
+            var closestPoint = Center + new Vector2(deltaX, deltaY);
     
             return closestPoint;
         }
