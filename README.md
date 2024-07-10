@@ -1,4 +1,8 @@
-# Better Joystick
+#[Deprecated] Better Joystick
+
+> [!CAUTION]
+> Package deprecated and replaced with - [Better Controls](https://github.com/techno-dwarf-works/better-controls)
+
 [![openupm](https://img.shields.io/npm/v/com.tdw.better.joystick?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.tdw.better.joystick/)
 
 ![image](https://user-images.githubusercontent.com/22265817/227740413-aa3fafb1-9e93-48e8-9968-6d07655118fa.png)
